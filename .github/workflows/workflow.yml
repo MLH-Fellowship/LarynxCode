@@ -1,4 +1,4 @@
-name: Rake_New2 workflow for codecov
+name: LarynxCode workflow for codecov
 on: 
   push: 
     branches: [master]
