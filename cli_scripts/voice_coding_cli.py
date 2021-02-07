@@ -1,26 +1,74 @@
 import subprocess,sys,click
+from subprocess import Popen,CREATE_NEW_CONSOLE
+from selenium import webdriver
+import six
+from pyfiglet import figlet_format
 
-@click.command()
-@click.option('--voice/--no-voice', default = False, help = "Use --voice if you want to code using your voice.")
-@click.option('--speech', prompt = "What is your default Speech Recognition engine ? ", help = "Choose your default Speech Recognition engine")
-def enable_voice_coding(voice,speech):
-    """Welcome to LarynxCode. This is a simple CLI that enables you to allow voice programming on your editor."""
-    if voice:
-        if speech == 'wsr':
-            cmds = [b'cd ..\..\..',b'c:',b'cd Caster',b'python -m dragonfly load --engine sapi5inproc _*.py --no-recobs-messages']
-            encoding = 'latin1'
-            p = subprocess.Popen(
-                'cmd.exe',
-                stdin = subprocess.PIPE,
-                stdout = subprocess.PIPE,
-                stderr = subprocess.PIPE
-            )
-            for cmd in cmds:
-                p.stdin.write(cmd + b"\n")
-            p.stdin.close()
-            click.echo(p.stdout.read())
+# Coloring libraries
+# Try colorama
+try:
+    import colorama
+    colorama.init()
+except ImportError:
+    colorama = None
+# Try termcolor
+try:
+    from termcolor import colored
+except ImportError:
+    colored = None
+
+# Grouping
+@click.group()
+def cli_group():
+    pass
+
+# Styling
+def log(string, color, font="slant", figlet=False):
+    if colored:
+        if not figlet:
+            six.print_(colored(string, color))
         else:
-            click.echo("Not supported as of now")
+            six.print_(colored(figlet_format(
+                string, font=font), color))
+    else:
+        six.print_(string)
+
+@cli_group.command()
+@click.option('--voice', default = False, help = "Use --voice if you want to code using your voice.")
+@click.option('--start', help = "To start voice coding, execute this command in the console : python -m dragonfly load --engine sapi5inproc _*.py --no-recobs-messages. Wait till the program says beginning loop, then clearly speak out your commands")
+def enable_voice_coding(voice,start):
+    """Welcome to LarynxCode. This is a simple CLI that enables you to allow voice programming on your editor."""
+    log("Larynx Code", color="blue", figlet=True)
+    log("Welcome to Larynx Code. We enable voice coding in your eitor and general navigations.", "green")
+    log("A new window will open up shortly, run the command : python -m dragonfly load --engine sapi5inproc _*.py --no-recobs-messages, to enable voice coding", "yellow")
+    log("LarynxCode --> developed by Balaka Biswas and Leshna Balara, with Click.", "cyan")
+    encoding = 'latin1'
+    p = subprocess.Popen(
+        ['start', 'cmd', '/k', 'cd /caster'],
+        creationflags = CREATE_NEW_CONSOLE,
+        shell = True,
+        stdin = subprocess.PIPE,
+        stdout = subprocess.PIPE,
+        stderr = subprocess.PIPE
+    )
+
+@cli_group.command()
+@click.option('--casterhelp', default = False, help = 'Call this option if you need to refer to the Caster Guide web app')
+@click.option("--google", help = "Chooses default browser as Google Chrome")
+def chelp(casterhelp,google):
+    """Welcome to LarynxCode. This is a simple CLI that enables you to allow voice programming on your editor."""
+    log("Larynx Code", color="blue", figlet=True)
+    log("Welcome to Larynx Code. We enable voice coding in your eitor and general navigations.", "green")
+    log("A new window will open up shortly, directing you to a simple guide. Detailed guides will get downloaded automatically.", "yellow")
+    log("Developed by Balaka Biswas. Hosted on Heroku.", "cyan")
+    driver = webdriver.Chrome("C:\\chromedriver.exe")
+    driver.get("https://larynxcode.herokuapp.com/")
+    while True:
+        pass
+    driver.close()
+
+'''cli_group.add_command(enable_voice_coding)
+cli_group.add_command(caster_help)'''
 
 if __name__ == "__main__":
-    enable_voice_coding()
+    cli_group()
