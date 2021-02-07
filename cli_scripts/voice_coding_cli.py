@@ -3,6 +3,7 @@ from subprocess import Popen,CREATE_NEW_CONSOLE
 from selenium import webdriver
 import six
 from pyfiglet import figlet_format
+from click_help_colors import HelpColorsGroup, HelpColorsCommand
 
 # Coloring libraries
 # Try colorama
@@ -17,8 +18,12 @@ try:
 except ImportError:
     colored = None
 
-# Grouping
-@click.group()
+# Help section coloring and Grouping
+@click.group(
+    cls=HelpColorsGroup,
+    help_headers_color='yellow',
+    help_options_color='cyan'
+)
 def cli_group():
     pass
 
@@ -37,7 +42,7 @@ def log(string, color, font="slant", figlet=False):
 @click.option('--voice', default = False, help = "Use --voice if you want to code using your voice.")
 @click.option('--start', help = "To start voice coding, execute this command in the console : python -m dragonfly load --engine sapi5inproc _*.py --no-recobs-messages. Wait till the program says beginning loop, then clearly speak out your commands")
 def enable_voice_coding(voice,start):
-    """Welcome to LarynxCode. This is a simple CLI that enables you to allow voice programming on your editor."""
+    """Enables voice coding."""
     log("Larynx Code", color="blue", figlet=True)
     log("Welcome to Larynx Code. We enable voice coding in your eitor and general navigations.", "green")
     log("A new window will open up shortly, run the command : python -m dragonfly load --engine sapi5inproc _*.py --no-recobs-messages, to enable voice coding", "yellow")
@@ -56,7 +61,7 @@ def enable_voice_coding(voice,start):
 @click.option('--casterhelp', default = False, help = 'Call this option if you need to refer to the Caster Guide web app')
 @click.option("--google", help = "Chooses default browser as Google Chrome")
 def chelp(casterhelp,google):
-    """Welcome to LarynxCode. This is a simple CLI that enables you to allow voice programming on your editor."""
+    """Command for launching user guide."""
     log("Larynx Code", color="blue", figlet=True)
     log("Welcome to Larynx Code. We enable voice coding in your eitor and general navigations.", "green")
     log("A new window will open up shortly, directing you to a simple guide. Detailed guides will get downloaded automatically.", "yellow")
@@ -71,4 +76,4 @@ def chelp(casterhelp,google):
 cli_group.add_command(caster_help)'''
 
 if __name__ == "__main__":
-    cli_group()
+    cli_group()       
