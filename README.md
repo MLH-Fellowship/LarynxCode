@@ -102,6 +102,12 @@ ________________________________________________________________________________
 
 **[Gabriel Cruz](https://github.com/gmelodie)**, for being an exceptional Pod leader. 
 
+**CONTRIBUTE :**
+
+Feel free to raise an Issue if you feel like improving our CLI. LarynxCode is open sourced under the [MIT License.](https://github.com/MLH-Fellowship/LarynxCode/blob/main/LICENSE)
+
+To contribute to the web application (frontend/backend) : **[Raise an Issue at this repository](https://github.com/BALaka-18/LarynxCode_Guide_webapp)**
+
 <br><br>
 
 ~ LarynxCode, developed by **[Balaka Biswas](https://github.com/BALaka-18)** and **[Leshna Balara](https://github.com/leshnabalara)**
