@@ -77,7 +77,7 @@ ________________________________________________________________________________
 **SETTING UP CASTER :**
 
 1. Install dragonfly : ```pip install dragonfly2```
-2. Follow the **[official docs](https://caster.readthedocs.io/en/latest/readthedocs/Installation/Windows/Windows_Speech_Recognition/)** only till step 4. LarynxCode automates the remaining setup and runs the algorithm. **NOTE :** Also, instead of installing at C:/Documents, install it in **C:/** directly
+2. Follow the **[official docs](https://caster.readthedocs.io/en/latest/readthedocs/Installation/Windows/Windows_Speech_Recognition/)** only till step 2. LarynxCode automates the remaining setup and runs the algorithm. **NOTE :** Also, instead of installing at C:/Documents, install it in **C:/** directly
 3. If you want to change rules/grammar, head over to C:/Caster/castervoice/rules to change the rules.
 
 **SETTING UP LARYNXCODE :**
